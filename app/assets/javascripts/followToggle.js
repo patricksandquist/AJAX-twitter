@@ -20,15 +20,16 @@ $.FollowToggle.prototype.render = function () {
 $.FollowToggle.prototype.handleClick = function (that) {
 
   that.$el.on('click', function (e) {
-    debugger;
+    // debugger;
     e.preventDefault();
     $.ajax({
       url: '/users/' + that.userId + '/follow',
       type: (that.followState === "false" ? 'POST' : 'DELETE'),
-      datatype: 'json',
+      dataType: 'json',
       success: function (responseData) {
         // debugger;
         that.followState = (that.followState === "true" ? "false" : "true");
+        that.render();
       }.bind(that)
     });
   }.bind(that));
