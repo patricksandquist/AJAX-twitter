@@ -3,12 +3,10 @@ $.FollowToggle = function (el) {
   this.userId = this.$el.attr('data-user-id');
   this.followState = this.$el.attr('data-initial-follow-state');
   this.render();
-  this.handleClick(this);
-  // debugger;
+  this.handleClick.call(this);
 };
 
 $.FollowToggle.prototype.render = function () {
-  // debugger;
   if (this.followState === "true") {
     this.$el.text("Unfollow!");
   } else {
@@ -17,23 +15,19 @@ $.FollowToggle.prototype.render = function () {
 
 };
 
-$.FollowToggle.prototype.handleClick = function (that) {
-
-  that.$el.on('click', function (e) {
-    // debugger;
+$.FollowToggle.prototype.handleClick = function () {
+  this.$el.on('click', function (e) {
     e.preventDefault();
     $.ajax({
-      url: '/users/' + that.userId + '/follow',
-      type: (that.followState === "false" ? 'POST' : 'DELETE'),
+      url: '/users/' + this.userId + '/follow',
+      type: (this.followState === "false" ? 'POST' : 'DELETE'),
       dataType: 'json',
       success: function (responseData) {
-        // debugger;
-        that.followState = (that.followState === "true" ? "false" : "true");
-        that.render();
-      }.bind(that)
+        this.followState = (this.followState === "true" ? "false" : "true");
+        this.render();
+      }.bind(this)
     });
-  }.bind(that));
-    // debugger;
+  }.bind(this));
 };
 
 $.fn.followToggle = function () {
