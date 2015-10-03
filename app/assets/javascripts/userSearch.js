@@ -23,10 +23,10 @@ $.UserSearch.prototype.listener = function () {
 };
 
 $.UserSearch.prototype.renderResults = function(responseData) {
-
   this.$el.find('li').remove();
   $.each(responseData, function(index, value) {
-    this.$ul.append('<li><a href=' + value.id + '>' + value.username + '</a></li>');
+    this.$ul.append('<li><a href=' + value.id + '>' + value.username + '</a><button class="follow-toggle" data-user-id=' + value.id + ' data-initial-follow-state=' + value.followed + '>' + (value.followed ? "Unfollow" : "Follow") +'</button></li>'
+);
   }.bind(this));
 };
 
